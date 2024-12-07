@@ -21,14 +21,14 @@ class CreateFlightsTable extends Migration
             $table->time('departure_time');
             $table->string('arrival_airport');
             $table->time('arrival_time');
-            $table->integer('flight_time')->comment('Duration in minutes');
+            $table->integer('flight_time');
             $table->string('airline');
             $table->foreignId('aircraft_id')->constrained('aircraft')->onDelete('cascade');
             $table->string('aircraft_reg')->nullable();
-            $table->enum('flight_class', ['Economy', 'Premium Eco', 'Business', 'First', 'Private']);
-            $table->enum('flight_seat', ['Window', 'Middle', 'Aisle']);
+            $table->string('flight_class');
+            $table->string('flight_seat');
             $table->string('flight_seat_number')->nullable();
-            $table->enum('flight_reason', ['Leisure', 'Business', 'Crew']);
+            $table->string('flight_reason');
             $table->text('comments')->nullable();
             $table->timestamps();
         });

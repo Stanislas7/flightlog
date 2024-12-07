@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\FlightClass;
+use App\Enums\FlightReason;
+use App\Enums\FlightSeat;
 
 class Flight extends Model
 {
