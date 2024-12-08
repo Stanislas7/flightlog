@@ -16,12 +16,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
     Route::get('/flights', [FlightController::class, 'index'])->name('flights.index');
     Route::get('/flights/create', [FlightController::class, 'create'])->name('flights.create');
     Route::post('/flights', [FlightController::class, 'store'])->name('flights.store');
-    Route::get('/flights/{flight}/edit', [FlightController::class, 'edit'])->name('flights.edit');
-    Route::put('/flights/{flight}', [FlightController::class, 'update'])->name('flights.update');
-    Route::delete('/flights/{flight}', [FlightController::class, 'destroy'])->name('flights.destroy');
+    Route::get('/flights/{flight}/edit', [FlightController::class, 'edit'])
+        ->name('flights.edit')
+        ->middleware('check.flight.ownership');
+
+    Route::put('/flights/{flight}', [FlightController::class, 'update'])
+        ->name('flights.update')
+        ->middleware('check.flight.ownership');
+
+    Route::delete('/flights/{flight}', [FlightController::class, 'destroy'])
+        ->name('flights.destroy')
+        ->middleware('check.flight.ownership');
 });
 
 require __DIR__.'/auth.php';

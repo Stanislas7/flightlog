@@ -15,6 +15,7 @@ class CreateFlightsTable extends Migration
     {
         Schema::create('flights', function (Blueprint $table) {
             $table->id();
+
             $table->string('flight_number');
             $table->date('departure_date');
             $table->string('departure_airport');
@@ -30,6 +31,7 @@ class CreateFlightsTable extends Migration
             $table->string('flight_seat_number')->nullable();
             $table->string('flight_reason');
             $table->text('comments')->nullable();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

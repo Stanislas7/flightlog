@@ -12,11 +12,11 @@ use Illuminate\Http\Request;
 class FlightController extends Controller
 {
     /**
-     * Show a list of all flights.
+     * Show a list of current user's flights.
      */
     public function index()
     {
-        $flights = Flight::with('aircraft')->get();
+        $flights = Flight::with('aircraft')->where('user_id', auth()->id())->get();
         return view('flights.index', compact('flights'));
     }
 
@@ -48,6 +48,8 @@ class FlightController extends Controller
             'flight_reason' => 'required|string|in:'.implode(',', FlightReason::values()),
             'comments' => 'nullable|string',
         ]);
+
+        $validated['user_id'] = auth()->id();
 
         Flight::create($validated);
 

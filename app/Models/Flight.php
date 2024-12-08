@@ -28,6 +28,7 @@ class Flight extends Model
         'flight_seat_number',
         'flight_reason',
         'comments',
+        'user_id',
     ];
 
     public function aircraft()
