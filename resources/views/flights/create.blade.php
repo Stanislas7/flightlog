@@ -12,7 +12,7 @@
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <h1 class="text-2xl font-bold mb-4">Create Flight</h1>
 
-        <form action="{{ route('flights.store') }}" method="POST" class="space-y-4">
+        <form action="{{ route('flights.store') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
             @csrf
             <div>
                 <label for="flight_number" class="block font-medium">Flight Number:</label>
@@ -76,12 +76,17 @@
             </div>
             <div>
                 <label for="flight_seat" class="block font-medium">Seat:</label>
-                <select name="flight_seat" id="flight_seat" required
+                <select name="flight_seat" id="flight_seat"
                     class="mt-1 block w-full border border-gray-300 rounded-md p-2">
                     <option value="Window">Window</option>
                     <option value="Middle">Middle</option>
                     <option value="Aisle">Aisle</option>
                 </select>
+            </div>
+            <div>
+                <label for="flight_seat_number" class="block font-medium">Seat Number:</label>
+                <input type="text" name="flight_seat_number" id="flight_seat_number"
+                    class="mt-1 block w-full border border-gray-300 rounded-md p-2">
             </div>
             <div>
                 <label for="flight_reason" class="block font-medium">Flight Reason:</label>
@@ -93,11 +98,16 @@
                 </select>
             </div>
             <div>
+                <label for="aircraft_reg" class="block font-medium">Aircraft Registration:</label>
+                <input type="text" name="aircraft_reg" id="aircraft_reg"
+                    class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+            </div>
+            <div class="col-span-2">
                 <label for="comments" class="block font-medium">Comments:</label>
                 <textarea name="comments" id="comments"
                     class="mt-1 block w-full border border-gray-300 rounded-md p-2"></textarea>
             </div>
-            <div>
+            <div class="col-span-2">
                 <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded">Create Flight</button>
             </div>
         </form>

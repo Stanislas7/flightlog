@@ -12,7 +12,7 @@
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <h1 class="text-2xl font-bold mb-4">Edit Flight</h1>
 
-        <form action="{{ route('flights.update', $flight->id) }}" method="POST" class="space-y-4">
+        <form action="{{ route('flights.update', $flight->id) }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
             @csrf
             @method('PUT')
             <div>
@@ -60,8 +60,7 @@
                 <select name="aircraft_id" id="aircraft_id" required
                     class="mt-1 block w-full border border-gray-300 rounded-md p-2">
                     @foreach ($aircraft as $plane)
-                    <option value="{{ $plane->id }}" {{ $plane->id === $flight->aircraft_id ? 'selected' : '' }}>
-                        {{ $plane->icao_code }} - {{ $plane->full_name }}</option>
+                    <option value="{{ $plane->id }}">{{ $plane->icao_code }} - {{ $plane->full_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -69,38 +68,47 @@
                 <label for="flight_class" class="block font-medium">Flight Class:</label>
                 <select name="flight_class" id="flight_class" required
                     class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-                    @foreach (App\Enums\FlightClass::cases() as $class)
-                    <option value="{{ $class->value }}" {{ $class->value === $flight->flight_class ? 'selected' : '' }}>
-                        {{ $class->value }}</option>
-                    @endforeach
+                    <option value="Economy">Economy</option>
+                    <option value="Premium Economy">Premium Economy</option>
+                    <option value="Business">Business</option>
+                    <option value="First">First</option>
+                    <option value="Private">Private</option>
                 </select>
             </div>
             <div>
                 <label for="flight_seat" class="block font-medium">Seat:</label>
-                <select name="flight_seat" id="flight_seat" required
+                <select name="flight_seat" id="flight_seat"
                     class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-                    @foreach (App\Enums\FlightSeat::cases() as $seat)
-                    <option value="{{ $seat->value }}" {{ $seat->value === $flight->flight_seat ? 'selected' : '' }}>
-                        {{ $seat->value }}</option>
-                    @endforeach
+                    <option value="Window">Window</option>
+                    <option value="Middle">Middle</option>
+                    <option value="Aisle">Aisle</option>
                 </select>
+            </div>
+            <div>
+                <label for="flight_seat_number" class="block font-medium">Seat Number:</label>
+                <input type="text" name="flight_seat_number" id="flight_seat_number" value="{{ $flight->flight_seat_number }}"
+                    class="mt-1 block w-full border border-gray-300 rounded-md p-2">
             </div>
             <div>
                 <label for="flight_reason" class="block font-medium">Flight Reason:</label>
                 <select name="flight_reason" id="flight_reason" required
                     class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-                    @foreach (App\Enums\FlightReason::cases() as $reason)
-                    <option value="{{ $reason->value }}" {{ $reason->value === $flight->flight_reason ? 'selected' : '' }}>
-                        {{ $reason->value }}</option>
-                    @endforeach
+                    <option value="Leisure">Leisure</option>
+                    <option value="Business">Business</option>
+                    <option value="Crew">Crew</option>
                 </select>
             </div>
             <div>
+                <label for="aircraft_reg" class="block font-medium">Aircraft Registration:</label>
+                <input type="text" name="aircraft_reg" id="aircraft_reg" value="{{ $flight->aircraft_reg }}"
+                    class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+            </div>
+            <div class="col-span-2">
                 <label for="comments" class="block font-medium">Comments:</label>
                 <textarea name="comments" id="comments"
                     class="mt-1 block w-full border border-gray-300 rounded-md p-2">{{ $flight->comments }}</textarea>
             </div>
-            <div>
+            <div class="col-span-2">
                 <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded">Update Flight</button>
             </div>
         </form>
